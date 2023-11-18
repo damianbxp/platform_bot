@@ -51,7 +51,7 @@ def generate_launch_description():
     # Aktywuje kontroller
     load_diff_drive_base_controller = ExecuteProcess(
         cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
-             'diff_drive_base_controller'],
+             'velocity_controller'],
         output='screen'
     )
 
