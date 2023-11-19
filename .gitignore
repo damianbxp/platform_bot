@@ -1,3 +1,4 @@
 build/
 install/
 log/
+src/platform_controller/platform_controller/__pycache__/

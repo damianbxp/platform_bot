@@ -49,7 +49,7 @@ def generate_launch_description():
     )
 
     # Aktywuje kontroller
-    load_diff_drive_base_controller = ExecuteProcess(
+    load_controller = ExecuteProcess(
         cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
              'velocity_controller'],
         output='screen'
@@ -65,7 +65,7 @@ def generate_launch_description():
         RegisterEventHandler(
             event_handler=OnProcessExit(
                 target_action=load_joint_state_controller,
-                on_exit=[load_diff_drive_base_controller],
+                on_exit=[load_controller],
             )
         ),
         gazebo,

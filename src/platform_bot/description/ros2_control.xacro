@@ -40,7 +40,7 @@
     </ros2_control>
     <gazebo>
         <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-            <parameters>$(find platform_bot)/config/mecanum_controler.yaml</parameters>
+            <parameters>$(find platform_bot)/config/mecanum_controller.yaml</parameters>
         </plugin>
     </gazebo>
 </robot>
