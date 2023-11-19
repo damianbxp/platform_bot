@@ -11,7 +11,7 @@ controller_manager:
 velocity_controller:
   ros__parameters:
     joints:
-      - wheel_fl_joint
-      - wheel_fr_joint
-      - wheel_rl_joint
-      - wheel_rr_joint
+      - fl_wheel_joint
+      - fr_wheel_joint
+      - rl_wheel_joint
+      - rr_wheel_joint

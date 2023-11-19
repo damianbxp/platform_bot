@@ -1,7 +1,16 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <xacro:include filename="colors.xacro"/>
     <xacro:include filename="inertial.xacro"/>
+    <xacro:include filename="mecanum_wheel.xacro"/>
+    
+
+    <xacro:property name="body_size_x" value="0.2"/>
+    <xacro:property name="body_size_y" value="0.3"/>
+    <xacro:property name="body_size_z" value="0.1"/>
+
+    <xacro:property name="wheel_offset_x" value="0.125"/>
+    <xacro:property name="wheel_offset_y" value="0.12"/>
+    <xacro:property name="wheel_offset_z" value="0"/>
 
 
     <link name="base_link">
@@ -16,21 +25,26 @@
 
     <!-- Chassis Link -->
 
+    <material name="chassis_color">
+        <color rgba="1.0 1.0 1.0 1.0"/>
+    </material>
+        
+
     <link name="chassis_link">
         <visual>
             <origin xyz="0.0 0.0 0.05"/>
             <geometry>
-                <box size="0.3 0.2 0.1"/>
+                <box size="${body_size_x} ${body_size_y} ${body_size_z}"/>
             </geometry>
-            <material name="white"/>
+            <material name="chassis_color"/>
         </visual>
         <collision>
             <origin xyz="0.0 0.0 0.05"/>
             <geometry>
-                <box size="0.3 0.2 0.1"/>
+                <box size="${body_size_x} ${body_size_y} ${body_size_z}"/>
             </geometry>
         </collision>
-        <xacro:inertial_box mass="0.5" x="0.3" y="0.3" z="0.15">
+        <xacro:inertial_box mass="0.5" x="${body_size_x}" y="${body_size_y}" z="${body_size_z}">
             <origin xyz="0.15 0 0.075" rpy="0 0 0"/>
         </xacro:inertial_box>
     </link>
@@ -41,9 +55,27 @@
 
     <!-- Wheels -->
 
-    <!-- FL -->
 
-    <joint name="wheel_fl_joint" type="continuous">
+    <!-- <xacro:macro name="wheels"> -->
+        <xacro:mecanum_wheel prefix="fl" parent="chassis_link">
+            <origin xyz="-${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0.0 -${pi/2} 0.0"/>
+        </xacro:mecanum_wheel>
+
+        <xacro:mecanum_wheel prefix="fr" parent="chassis_link">
+            <origin xyz="${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0.0 -${pi/2} 0.0"/>
+        </xacro:mecanum_wheel>
+
+        <xacro:mecanum_wheel prefix="rl" parent="chassis_link">
+            <origin xyz="-${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0.0 -${pi/2} 0.0"/>
+        </xacro:mecanum_wheel>
+
+        <xacro:mecanum_wheel prefix="rr" parent="chassis_link">
+            <origin xyz="${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0.0 -${pi/2} 0.0"/>
+        </xacro:mecanum_wheel>
+    <!-- </xacro:macro> -->
+
+
+    <!-- <joint name="wheel_fl_joint" type="continuous">
         <parent link="chassis_link"/>
         <child link="wheel_fl_link"/>
         <origin xyz="0.125 0.12 0" rpy="-${pi/2} 0 0" />
@@ -71,7 +103,6 @@
         <material>Gazebo/Blue</material>
     </gazebo>
 
-    <!-- FR -->
 
     <joint name="wheel_fr_joint" type="continuous">
         <parent link="chassis_link"/>
@@ -101,7 +132,6 @@
         <material>Gazebo/Blue</material>
     </gazebo>
 
-    <!-- RL -->
 
     <joint name="wheel_rl_joint" type="continuous">
         <parent link="chassis_link"/>
@@ -131,7 +161,6 @@
         <material>Gazebo/Blue</material>
     </gazebo>
 
-    <!-- RR -->
 
     <joint name="wheel_rr_joint" type="continuous">
         <parent link="chassis_link"/>
@@ -159,6 +188,6 @@
 
     <gazebo reference="wheel_rr_link">
         <material>Gazebo/Blue</material>
-    </gazebo>
+    </gazebo> -->
 
 </robot>
