@@ -6,5 +6,6 @@
     "python.analysis.extraPaths": [
         "/home/damian/ros_ws/install/python_test/lib/python3.10/site-packages",
         "/opt/ros/iron/lib/python3.10/site-packages"
-    ]
+    ],
+    "ros.distro": "iron"
 }
