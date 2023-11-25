@@ -34,6 +34,9 @@
             </xacro:inertial_cylinder>
         </link>
         
+        <gazebo reference="roller_${prefix}_wheel_link_${iterator}">
+            <material>Gazebo/Orange</material>
+        </gazebo>
 
         <xacro:if value="${iterator}">
             <xacro:rollers_loop iterator="${iterator-1}" qty="${qty}" prefix="${prefix}" parent="${parent}" radius="${radius}"/>
@@ -78,7 +81,7 @@
         </gazebo>
 
 
-        <xacro:rollers qty="5" prefix="${prefix}" parent="${prefix}_wheel_link" radius="0.05"/>
+        <xacro:rollers qty="10" prefix="${prefix}" parent="${prefix}_wheel_link" radius="0.05"/>
 
 
     
