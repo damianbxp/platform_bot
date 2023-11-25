@@ -57,19 +57,19 @@
 
 
     <!-- <xacro:macro name="wheels"> -->
-        <xacro:mecanum_wheel prefix="fl" parent="chassis_link">
+        <xacro:mecanum_wheel prefix="fl" parent="chassis_link" direction="-1">
             <origin xyz="-${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0.0 -${pi/2} 0.0"/>
         </xacro:mecanum_wheel>
 
-        <xacro:mecanum_wheel prefix="fr" parent="chassis_link">
+        <xacro:mecanum_wheel prefix="fr" parent="chassis_link" direction="1">
             <origin xyz="${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0.0 -${pi/2} 0.0"/>
         </xacro:mecanum_wheel>
 
-        <xacro:mecanum_wheel prefix="rl" parent="chassis_link">
+        <xacro:mecanum_wheel prefix="rl" parent="chassis_link" direction="1">
             <origin xyz="-${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0.0 -${pi/2} 0.0"/>
         </xacro:mecanum_wheel>
 
-        <xacro:mecanum_wheel prefix="rr" parent="chassis_link">
+        <xacro:mecanum_wheel prefix="rr" parent="chassis_link" direction="-1">
             <origin xyz="${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0.0 -${pi/2} 0.0"/>
         </xacro:mecanum_wheel>
     <!-- </xacro:macro> -->

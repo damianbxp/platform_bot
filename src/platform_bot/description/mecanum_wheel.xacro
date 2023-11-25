@@ -9,9 +9,9 @@
         <color rgba="0.8 0.6 0.2 1"/>
     </material>
 
-    <xacro:macro name="rollers_loop" params="iterator qty prefix parent radius">
+    <xacro:macro name="rollers_loop" params="iterator qty prefix parent radius direction">
         <joint name="roller_${prefix}_wheel_joint_${iterator}" type="continuous">
-            <origin xyz="${sin((iterator/qty) * 2 * pi) * radius} ${cos((iterator/qty) * 2 * pi) * radius} 0.0" rpy="0.0 0.0 0.0"/>
+            <origin xyz="${sin((iterator/qty) * 2 * pi) * radius} ${cos((iterator/qty) * 2 * pi) * radius} 0.0" rpy="${sin((iterator/qty) * 2 * pi) * pi/4 * direction} ${cos((iterator/qty) * 2 * pi) * pi/4 * direction} 0.0"/>
             <parent link="${parent}"/>
             <child link="roller_${prefix}_wheel_link_${iterator}"/>
             <axis xyz="0 0 1"/>
@@ -39,17 +39,17 @@
         </gazebo>
 
         <xacro:if value="${iterator}">
-            <xacro:rollers_loop iterator="${iterator-1}" qty="${qty}" prefix="${prefix}" parent="${parent}" radius="${radius}"/>
+            <xacro:rollers_loop iterator="${iterator-1}" qty="${qty}" prefix="${prefix}" parent="${parent}" radius="${radius}" direction="${direction}"/>
         </xacro:if>
     </xacro:macro>
 
 
-    <xacro:macro name="rollers" params="qty prefix parent radius">
-        <xacro:rollers_loop iterator="${qty-1}" qty="${qty}" prefix="${prefix}" parent="${parent}" radius="${radius}"/>
+    <xacro:macro name="rollers" params="qty prefix parent radius direction">
+        <xacro:rollers_loop iterator="${qty-1}" qty="${qty}" prefix="${prefix}" parent="${parent}" radius="${radius}" direction="${direction}"/>
     </xacro:macro>
 
 
-    <xacro:macro name="mecanum_wheel" params="prefix parent *origin">
+    <xacro:macro name="mecanum_wheel" params="prefix parent *origin direction">
 
         <joint name="${prefix}_wheel_joint" type="continuous">
             <parent link="${parent}"/>
@@ -81,7 +81,7 @@
         </gazebo>
 
 
-        <xacro:rollers qty="10" prefix="${prefix}" parent="${prefix}_wheel_link" radius="0.05"/>
+        <xacro:rollers qty="16" prefix="${prefix}" parent="${prefix}_wheel_link" radius="0.05" direction="${direction}"/>
 
 
     
