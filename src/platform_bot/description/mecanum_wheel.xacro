@@ -5,6 +5,46 @@
     <material name="wheel_color">
         <color rgba="1 0.3 0.1 1"/>
     </material>
+    <material name="roller_color">
+        <color rgba="0.8 0.6 0.2 1"/>
+    </material>
+
+    <xacro:macro name="rollers_loop" params="iterator qty prefix parent radius">
+        <joint name="roller_${prefix}_wheel_joint_${iterator}" type="continuous">
+            <origin xyz="${sin((iterator/qty) * 2 * pi) * radius} ${cos((iterator/qty) * 2 * pi) * radius} 0.0" rpy="0.0 0.0 0.0"/>
+            <parent link="${parent}"/>
+            <child link="roller_${prefix}_wheel_link_${iterator}"/>
+            <axis xyz="0 0 1"/>
+        </joint>
+
+        <link name="roller_${prefix}_wheel_link_${iterator}">
+            <visual>
+                <geometry>
+                    <cylinder radius="0.005" length="0.04"/>
+                </geometry>
+                <material name="roller_color"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder radius="0.005" length="0.04"/>
+                </geometry>
+            </collision>
+            <xacro:inertial_cylinder mass="0.01" length="0.04" radius="0.0025">
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+            </xacro:inertial_cylinder>
+        </link>
+        
+
+        <xacro:if value="${iterator}">
+            <xacro:rollers_loop iterator="${iterator-1}" qty="${qty}" prefix="${prefix}" parent="${parent}" radius="${radius}"/>
+        </xacro:if>
+    </xacro:macro>
+
+
+    <xacro:macro name="rollers" params="qty prefix parent radius">
+        <xacro:rollers_loop iterator="${qty-1}" qty="${qty}" prefix="${prefix}" parent="${parent}" radius="${radius}"/>
+    </xacro:macro>
+
 
     <xacro:macro name="mecanum_wheel" params="prefix parent *origin">
 
@@ -36,6 +76,11 @@
         <gazebo reference="${prefix}_wheel_link">
             <material>Gazebo/Blue</material>
         </gazebo>
+
+
+        <xacro:rollers qty="5" prefix="${prefix}" parent="${prefix}_wheel_link" radius="0.05"/>
+
+
     
     </xacro:macro>
 
