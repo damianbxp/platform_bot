@@ -20,7 +20,8 @@ class Controller(Node):
         y = msg.linear.x
         rz = -msg.angular.z
 
-        denominator = max(abs(x) + abs(y) + abs(rz), 1)
+        # denominator = max(abs(x) + abs(y) + abs(rz), 1)
+        denominator = 1
         command.data = [
             (y+x+rz)/denominator,
             (y-x-rz)/denominator,
